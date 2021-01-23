@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
-import DictMain from './Main'
-import DictDetail from './Detail'
+import DictMain from './main'
+import DictDetail from './detail'
 
 export default defineComponent({
   name: 'Dict',
