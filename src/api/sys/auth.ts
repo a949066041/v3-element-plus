@@ -19,11 +19,11 @@ export const login = (loginCheck: ISAuthUser): Promise<IRLogin> => {
 }
 
 // 获取用户信息
-export const info = (): Promise<any> => {
+export const info = (): Promise<void> => {
   return get(`${prefixUrl}/info`)
 }
 
 // 用户退出
-export const logout = (): Promise<any> => {
+export const logout = (): Promise<void> => {
   return deletes(`${prefixUrl}/logout`)
 }

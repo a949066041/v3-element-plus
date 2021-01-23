@@ -1,3 +1,4 @@
+import { IMenu } from '@/types/model/entity/menu'
 import { IStoreUser } from '@/types/store/user'
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
@@ -17,7 +18,7 @@ export default defineComponent({
           active-text-color="#ffd04b"
         >
           {
-            menuList.value.map((item: any) => (
+            menuList.value.map((item: IMenu) => (
               <SideItem path={item.path} context={item} />
             ))
           }
