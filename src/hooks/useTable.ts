@@ -1,4 +1,4 @@
-import { get } from '@/api'
+import { get, IPageResponse } from '@/api'
 import { IUseTableOption, IUseTable, IUseTableState } from '@/types/hooks'
 import { reactive, onMounted, watch } from 'vue'
 
@@ -17,7 +17,7 @@ const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseT
 
   const getTable = () => {
     toggleLoading(true)
-    get(options.api, { ...state.searchForm, page: state.page - 1, size: state.size }).then((res) => {
+    get(options.api, { ...state.searchForm, page: state.page - 1, size: state.size }).then((res: IPageResponse<T>) => {
       state.total = res.totalElements
       state.dataSource = res.content
     }).finally(() => { toggleLoading(false) })

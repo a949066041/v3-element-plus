@@ -1,5 +1,4 @@
-import { IMenu } from '@/types/model/entity/menu'
-import { IUser } from '@/types/model/entity/user'
+import { IMenu, IUser } from '@/types/model/entity/sys'
 import { IStoreUser } from '@/types/store/user'
 import { setToken, removeToken } from '@/utils/cookie'
 import { SET_MENUS, SET_TOKEN, SET_USER_INFO } from './actionTypes'

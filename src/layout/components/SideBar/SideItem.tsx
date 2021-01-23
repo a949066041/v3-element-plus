@@ -1,4 +1,4 @@
-import { IMenu } from '@/types/model/entity/menu'
+import { IMenu } from '@/types/model/entity/sys'
 import { computed, defineComponent, PropType } from 'vue'
 
 export default defineComponent({

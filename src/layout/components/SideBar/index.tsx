@@ -1,4 +1,4 @@
-import { IMenu } from '@/types/model/entity/menu'
+import { IMenu } from '@/types/model/entity/sys'
 import { IStoreUser } from '@/types/store/user'
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'

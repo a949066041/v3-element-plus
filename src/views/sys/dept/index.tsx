@@ -1,12 +1,12 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
 import useTable from '@/hooks/useTable'
-import { IDict } from '@/types/model/entity/sys'
+import { IDept } from '@/types/model/entity/sys'
 
 export default defineComponent({
-  name: 'DictMain',
+  name: 'SysDept',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IDict>({ api: '/api/dict' })
+    const { state, searchTable, resetSearch } = useTable<IDept>({ api: '/api/dept' })
     return () => {
       return (
         <MsTable
@@ -14,7 +14,7 @@ export default defineComponent({
           { ...state }
           columns={[
             { dataIndex: 'name', label: '名称' },
-            { dataIndex: 'description', label: '描述' },
+            { dataIndex: 'deptSort', label: '排序' },
             { dataIndex: 'createTime', label: '创建时间', time: true }
           ]}
         >

@@ -117,6 +117,11 @@ export const cacheAction = (url: string, params = {}): Promise<any> => {
   })
 }
 
+export interface IPageResponse<T> {
+  content: Array<T>;
+  totalElements: number;
+}
+
 export default {
   put,
   post,

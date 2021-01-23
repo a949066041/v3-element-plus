@@ -1,22 +1,39 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
+import { getMenus } from '@/api/sys/menu'
 import useTable from '@/hooks/useTable'
-import { IDict } from '@/types/model/entity/sys'
+import { IMenu } from '@/types/model/entity/sys'
 
 export default defineComponent({
-  name: 'DictMain',
+  name: 'SysMenu',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IDict>({ api: '/api/dict' })
+    const { state, searchTable, resetSearch } = useTable<IMenu>({ api: '/api/menus' })
+
+    const getChildrenMenus = (tree: any, treeNode: any, resolve: any) => {
+      getMenus(tree.id).then(res => {
+        resolve(res.content)
+      })
+    }
+
     return () => {
       return (
         <MsTable
           v-models={[[state.size, 'size'], [state.page, 'page']]}
           { ...state }
           columns={[
-            { dataIndex: 'name', label: '名称' },
-            { dataIndex: 'description', label: '描述' },
+            { dataIndex: 'title', label: '菜单标题' },
+            { dataIndex: 'icon', label: '图标' },
+            { dataIndex: 'menuSort', label: '排序' },
+            { dataIndex: 'permission', label: '权限标识' },
+            { dataIndex: 'component', label: '组件路径' },
             { dataIndex: 'createTime', label: '创建时间', time: true }
           ]}
+          tree-props={{ children: 'children', hasChildren: 'hasChildren' }}
+          row-key="id"
+          { ... {
+            lazy: true,
+            load: getChildrenMenus
+          }}
         >
           {{
             search: () => (

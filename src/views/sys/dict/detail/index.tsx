@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
-import { IDictDetail } from '@/types/model/entity/dictDetail'
+import { IDictDetail } from '@/types/model/entity/sys'
 import useTable from '@/hooks/useTable'
 
 export default defineComponent({

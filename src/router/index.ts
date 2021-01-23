@@ -26,6 +26,26 @@ const routes: Array<RouteRecordRaw> = [
         path: 'dict',
         component: () => import('@/views/sys/dict'),
         name: 'SysDict'
+      },
+      {
+        path: 'dept',
+        component: () => import('@/views/sys/dept'),
+        name: 'SysDept'
+      },
+      {
+        path: 'job',
+        component: () => import('@/views/sys/job'),
+        name: 'SysJob'
+      },
+      {
+        path: 'menu',
+        component: () => import('@/views/sys/menu'),
+        name: 'SysMenus'
+      },
+      {
+        path: 'role',
+        component: () => import('@/views/sys/role'),
+        name: 'SysRole'
       }
     ]
   }
