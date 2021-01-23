@@ -1,3 +1,5 @@
+import { IMenu } from '@/types/model/entity/menu'
+import { IUser } from '@/types/model/entity/user'
 import { IStoreUser } from '@/types/store/user'
 import { setToken, removeToken } from '@/utils/cookie'
 import { SET_MENUS, SET_TOKEN, SET_USER_INFO } from './actionTypes'
@@ -11,10 +13,10 @@ export default {
       removeToken()
     }
   },
-  [SET_USER_INFO] (state: IStoreUser, payload: any): void {
+  [SET_USER_INFO] (state: IStoreUser, payload: IUser): void {
     state.userInfo = payload
   },
-  [SET_MENUS] (state: IStoreUser, payload: Array<any>): void {
+  [SET_MENUS] (state: IStoreUser, payload: IMenu[]): void {
     state.menus = payload
   }
 }

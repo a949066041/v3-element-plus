@@ -1,6 +1,6 @@
 export interface IMenu {
   id: number;
-  children: Array<IMenu>;
+  children?: Array<IMenu>;
   type: number;
   permission: string;
   menuSort: number;
@@ -12,4 +12,7 @@ export interface IMenu {
   cache: boolean;
   componentName: string;
   icon: string;
+  meta?: {
+    [key: string]: any;
+  };
 }
