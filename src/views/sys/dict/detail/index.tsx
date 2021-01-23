@@ -1,20 +1,12 @@
-import { defineComponent, onMounted, reactive } from 'vue'
+import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
-import { get } from '@/api'
+import { IDictDetail } from '@/types/model/entity/dictDetail'
+import useTable from '@/hooks/useTable'
 
 export default defineComponent({
   name: 'DictDetail',
   setup () {
-    const state = reactive({
-      total: 0,
-      dataSource: []
-    })
-    onMounted(() => {
-      get('/api/dictDetail').then((res) => {
-        state.total = res.totalElements
-        state.dataSource = res.content
-      })
-    })
+    const { state } = useTable<IDictDetail>({ api: '/api/dictDetail' })
     return () => {
       return (
         <MsTable

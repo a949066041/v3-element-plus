@@ -8,7 +8,7 @@ export default defineComponent({
     context: Object as PropType<IItemConfig>,
     align: String as PropType<string>,
     slots: {
-      type: Object as PropType<Slot>,
+      type: Function as PropType<Slot>,
       default: undefined
     }
   },

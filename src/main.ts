@@ -11,5 +11,5 @@ import 'animate.css'
 createApp(App)
   .use(store)
   .use(router)
-  .use(ElementPlus)
+  .use(ElementPlus, { size: 'small' })
   .mount('#app')

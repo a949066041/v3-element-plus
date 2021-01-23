@@ -54,6 +54,14 @@ export default defineComponent({
   setup (props, { slots, attrs, emit }) {
     const tableAlign = computed(() => TABLE_ALIGN[props.align])
     return () => {
+      // 搜索区域
+      const searchRender = () => (
+        slots.search && (
+          <div class="search">
+            { slots.search() }
+          </div>
+        )
+      )
       const renderTable = () => {
         // 表格显示区域
         const columnsRender = () => props.columns.map((item) => (
@@ -97,6 +105,7 @@ export default defineComponent({
       }
       return (
         <div class="ms__table">
+          { searchRender() }
           { renderTable() }
         </div>
       )
