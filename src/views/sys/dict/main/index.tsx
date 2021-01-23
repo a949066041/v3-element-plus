@@ -1,19 +1,29 @@
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, reactive } from 'vue'
 import MsTable from '@/components/Table'
+import { get } from '@/api'
 
 export default defineComponent({
   name: 'DictMain',
   setup () {
+    const state = reactive({
+      total: 0,
+      dataSource: []
+    })
+    onMounted(() => {
+      get('/api/dict').then((res) => {
+        state.total = res.totalElements
+        state.dataSource = res.content
+      })
+    })
     return () => {
       return (
         <MsTable
-          dataSource={[]}
+          total={state.total}
+          dataSource={state.dataSource}
           columns={[
-            { dataIndex: 'username', label: '用户名' },
-            { dataIndex: 'nickName', label: '昵称' },
-            { dataIndex: 'gender', label: '性别' },
-            { dataIndex: 'phone', label: '电话' },
-            { dataIndex: 'email', label: '邮箱' }
+            { dataIndex: 'name', label: '名称' },
+            { dataIndex: 'description', label: '描述' },
+            { dataIndex: 'createTime', label: '创建时间', time: true }
           ]}
         />
       )
