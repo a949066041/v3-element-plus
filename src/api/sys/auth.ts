@@ -1,7 +1,7 @@
 import { ISAuthUser } from '@/types/model/request/sys'
 import { IRCode, IRLogin } from '@/types/model/response/sys'
 import { encrypt } from '@/utils/rsaEncrypt'
-import { get, post } from '../'
+import { get, post, deletes } from '../'
 
 const prefixUrl = '/auth'
 
@@ -16,4 +16,14 @@ export const login = (loginCheck: ISAuthUser): Promise<IRLogin> => {
   // 密码加密
   sendData.password = encrypt(sendData.password)
   return post(`${prefixUrl}/login`, sendData)
+}
+
+// 获取用户信息
+export const info = (): Promise<any> => {
+  return get(`${prefixUrl}/info`)
+}
+
+// 用户退出
+export const logout = (): Promise<any> => {
+  return deletes(`${prefixUrl}/logout`)
 }
