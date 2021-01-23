@@ -2,7 +2,7 @@ import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
 
 export default defineComponent({
-  name: 'SysUser',
+  name: 'DictDetail',
   setup () {
     return () => {
       return (

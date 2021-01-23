@@ -1,6 +1,5 @@
-import { buildMenus } from '@/api/sys/menu'
 import { IStoreUser } from '@/types/store/user'
-import { computed, defineComponent, onMounted, reactive } from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import SideItem from './SideItem'
 

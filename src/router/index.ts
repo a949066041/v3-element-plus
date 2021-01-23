@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'user',
         component: () => import('@/views/sys/user'),
         name: 'SysUser'
+      },
+      {
+        path: 'dict',
+        component: () => import('@/views/sys/dict'),
+        name: 'SysDict'
       }
     ]
   }
