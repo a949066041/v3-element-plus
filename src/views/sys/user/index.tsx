@@ -27,7 +27,7 @@ export default defineComponent({
                 <el-row gutter={20}>
                   <el-col span={4}>
                     <el-form-item prop="a">
-                      <el-input v-model={state.searchForm.a} />
+                      <el-input v-model={state.searchForm.blurry} placeholder="输入部门名称搜索" />
                     </el-form-item>
                   </el-col>
                   <el-col span={8}>
