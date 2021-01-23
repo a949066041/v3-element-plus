@@ -6,7 +6,7 @@ import useTable from '@/hooks/useTable'
 export default defineComponent({
   name: 'DictDetail',
   setup () {
-    const { state } = useTable<IDictDetail>({ api: '/api/dictDetail' })
+    const { state } = useTable<IDictDetail>({ api: '/api/dictDetail' }, false)
     return () => {
       return (
         <MsTable

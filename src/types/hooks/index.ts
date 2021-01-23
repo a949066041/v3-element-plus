@@ -1,6 +1,5 @@
 export interface IUseTableOption {
   api: string;
-  firstLoad?: boolean;
 }
 
 export interface IUseTableState<T> {

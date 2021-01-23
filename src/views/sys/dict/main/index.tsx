@@ -6,7 +6,7 @@ import { IDict } from '@/types/model/entity/dict'
 export default defineComponent({
   name: 'DictMain',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IDict>({ api: '/api/dict', firstLoad: true })
+    const { state, searchTable, resetSearch } = useTable<IDict>({ api: '/api/dict' })
     return () => {
       return (
         <MsTable

@@ -2,7 +2,7 @@ import { get } from '@/api'
 import { IUseTableOption, IUseTable, IUseTableState } from '@/types/hooks'
 import { reactive, onMounted, watch } from 'vue'
 
-const useTable = function<T> (options: IUseTableOption): IUseTable<T> {
+const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseTable<T> {
   const state: IUseTableState<T> = reactive({
     total: 0,
     dataSource: [],
@@ -38,7 +38,7 @@ const useTable = function<T> (options: IUseTableOption): IUseTable<T> {
 
   watch([() => state.page, () => state.size], getTable)
 
-  onMounted(() => { options.firstLoad && getTable() })
+  onMounted(() => { firstLoad && getTable() })
 
   return {
     state,
