@@ -1,15 +1,15 @@
 import { login as loginCheck, logout as userLogout, info } from '@/api/sys/auth'
+import { buildMenus } from '@/api/sys/menu'
 import { ISAuthUser } from '@/types/model/request/sys'
 import { ICtx } from '@/types/store'
 import { IStoreUser } from '@/types/store/user'
-import { SET_TOKEN, SET_USER_INFO } from './actionTypes'
+import { SET_MENUS, SET_TOKEN, SET_USER_INFO } from './actionTypes'
 
 export default {
   login ({ commit }: ICtx<IStoreUser>, form: ISAuthUser) {
-    return new Promise((resolve, reject) => {
+    return new Promise<any>((resolve, reject) => {
       loginCheck(form).then((res) => {
         commit(SET_TOKEN, res.token)
-        commit(SET_USER_INFO, res.user.user)
         resolve(res.user)
       }).catch(reject)
     })
@@ -23,10 +23,18 @@ export default {
       }).catch(reject)
     })
   },
-  refreshUser ({ commit }: ICtx<IStoreUser>) {
+  refreshUser ({ commit, dispatch }: ICtx<IStoreUser>) {
     return new Promise<void>((resolve, reject) => {
       info().then((res) => {
         commit(SET_USER_INFO, res)
+        dispatch('generateRoutes').then(resolve)
+      }).catch(reject)
+    })
+  },
+  generateRoutes ({ commit }: ICtx<IStoreUser>) {
+    return new Promise<void>((resolve, reject) => {
+      buildMenus().then((menu) => {
+        commit(SET_MENUS, menu)
         resolve()
       }).catch(reject)
     })

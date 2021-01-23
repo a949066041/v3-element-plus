@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import Layout from '@/layout'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,6 +11,18 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Home',
     component: () => import('@/layout')
+  },
+  {
+    path: '/system',
+    component: Layout,
+    redirect: '/user',
+    children: [
+      {
+        path: 'user',
+        component: () => import('@/views/sys/user'),
+        name: 'SysUser'
+      }
+    ]
   }
 ]
 
