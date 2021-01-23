@@ -20,7 +20,8 @@ module.exports = {
     'no-prototype-builtins': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',
-    'vue/no-mutating-props': 'off'
+    'vue/no-mutating-props': 'off',
+    '@typescript-eslint/interface-name-prefix': 0
   },
   overrides: [
     {

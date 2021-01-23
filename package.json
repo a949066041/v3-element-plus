@@ -13,6 +13,7 @@
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "element-plus": "^1.0.2-beta.28",
     "js-cookie": "^2.2.1",
     "jsencrypt": "^3.0.0-rc.1",
     "vue": "^3.0.0",
@@ -20,6 +21,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^2.2.6",
     "@types/jest": "^24.0.19",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
