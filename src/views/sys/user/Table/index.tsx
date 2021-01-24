@@ -1,7 +1,8 @@
 import { defineComponent, PropType, watch } from 'vue'
 import MsTable from '@/components/Table'
-import useTable from '@/hooks/useTable'
+import useTable, { useTableModal } from '@/hooks/useTable'
 import { IUser } from '@/types/model/entity/sys'
+import SysForm from './Form'
 
 export default defineComponent({
   name: 'SysUserTable',
@@ -12,8 +13,9 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const { state, searchTable, search, resetSearch } = useTable<IUser>({ api: '/api/users' })
+    const { state, searchTable, search } = useTable<IUser>({ api: '/api/users' })
 
+    const { state: mState, openDialog } = useTableModal()
     // 部门变化
     watch(() => props.deptId, (val) => {
       if (val) {
@@ -48,13 +50,14 @@ export default defineComponent({
                     </el-col>
                     <el-col span={8}>
                       <el-button type="primary" onClick={searchTable}>搜索</el-button>
-                      <el-button type="primary" onClick={resetSearch}>重置</el-button>
+                      <el-button type="primary" onClick={() => openDialog(1)}>重置</el-button>
                     </el-col>
                   </el-row>
                 </el-form>
               )
             }}
           </MsTable>
+          <SysForm v-models={[[mState.visible, 'visible'], [mState.formId, 'formId']]} />
         </>
       )
     }

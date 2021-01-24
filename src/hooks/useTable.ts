@@ -1,5 +1,5 @@
 import { get, IPageResponse } from '@/api'
-import { IUseTableOption, IUseTable, IUseTableState, IUseTableSearchState } from '@/types/hooks'
+import { IUseTableOption, IUseTable, IUseTableState, IUseTableSearchState, IUseTableModalState, IUseTableModal } from '@/types/hooks'
 import { reactive, onMounted, watch } from 'vue'
 
 const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseTable<T> {
@@ -56,6 +56,29 @@ const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseT
     resetSearch,
     searchTable
   }
+}
+
+const useTableModal = function (): IUseTableModal {
+  const state: IUseTableModalState = reactive({
+    formId: 0,
+    visible: false
+  })
+
+  const toggleVisible = (val: boolean) => { state.visible = val }
+
+  const openDialog = (formId?: number | string) => {
+    state.formId = formId
+    toggleVisible(true)
+  }
+
+  return {
+    state,
+    openDialog
+  }
+}
+
+export {
+  useTableModal
 }
 
 export default useTable

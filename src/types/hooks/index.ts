@@ -22,3 +22,12 @@ export interface IUseTable<T> {
   resetSearch: () => void;
   searchTable: () => void;
 }
+
+export interface IUseTableModalState {
+  formId?: string | number;
+  visible: boolean;
+}
+export interface IUseTableModal {
+  state: IUseTableModalState;
+  openDialog: (formId?: string | number) => void;
+}
