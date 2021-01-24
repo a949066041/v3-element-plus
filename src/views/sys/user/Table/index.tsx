@@ -1,12 +1,27 @@
-import { defineComponent } from 'vue'
+import { defineComponent, PropType, watch } from 'vue'
 import MsTable from '@/components/Table'
 import useTable from '@/hooks/useTable'
 import { IUser } from '@/types/model/entity/sys'
 
 export default defineComponent({
   name: 'SysUserTable',
-  setup () {
+  props: {
+    deptId: {
+      type: Number as PropType<number>,
+      default: 0
+    }
+  },
+  setup (props) {
     const { state, searchTable, search, resetSearch } = useTable<IUser>({ api: '/api/users' })
+
+    // 部门变化
+    watch(() => props.deptId, (val) => {
+      if (val) {
+        search.initForm.deptIds = val
+        searchTable()
+      }
+    })
+
     return () => {
       return (
         <>

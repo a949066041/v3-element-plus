@@ -6,6 +6,11 @@
       height: 100%;
     }
   }
+  .el-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   .el-main {
     overflow: hidden;
     padding: 0;
