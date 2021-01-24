@@ -1,6 +1,6 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import MsTable from '@/components/Table'
-import MsFull from '@/components/Full'
+import MsDialog from '@/components/Dialog'
 import useTable from '@/hooks/useTable'
 import { IUser } from '@/types/model/entity/sys'
 
@@ -9,11 +9,34 @@ export default defineComponent({
   setup () {
     const { state, searchTable } = useTable<IUser>({ api: '/api/users' })
     const dialog = ref(false)
+    const mState = reactive({
+      formInfo: {
+        username: ''
+      }
+    })
     return () => {
       return (
         <>
-          <MsFull v-model={[dialog.value, 'visible']}>
-          </MsFull>
+          <MsDialog v-model={[dialog.value, 'visible']} isAdd={true}>
+            {{
+              default: () => (
+                <el-form ref="formRef" model={mState.formInfo} size="small" label-width="66px">
+                  <el-row gutter={20}>
+                    <el-col span={12}>
+                      <el-form-item label="用户名" prop="username">
+                        <el-input v-model={mState.formInfo.username} />
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-form>
+              ),
+              footer: () => (
+                <>
+                  <el-button>确定</el-button>
+                </>
+              )
+            }}
+          </MsDialog>
           <MsTable
             v-models={[[state.size, 'size'], [state.page, 'page']]}
             { ...state }
