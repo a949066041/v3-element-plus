@@ -6,7 +6,7 @@ import { IDept } from '@/types/model/entity/sys'
 export default defineComponent({
   name: 'SysDept',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IDept>({ api: '/api/dept' })
+    const { state, searchTable, resetSearch, search } = useTable<IDept>({ api: '/api/dept' })
     return () => {
       return (
         <MsTable
@@ -24,7 +24,7 @@ export default defineComponent({
                 <el-row gutter={20}>
                   <el-col span={4}>
                     <el-form-item prop="a">
-                      <el-input v-model={state.searchForm.a} />
+                      <el-input v-model={search.searchForm.a} />
                     </el-form-item>
                   </el-col>
                   <el-col span={8}>

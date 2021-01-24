@@ -7,7 +7,7 @@ import { IMenu } from '@/types/model/entity/sys'
 export default defineComponent({
   name: 'SysMenu',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IMenu>({ api: '/api/menus' })
+    const { state, searchTable, resetSearch, search } = useTable<IMenu>({ api: '/api/menus' })
 
     const getChildrenMenus = (tree: any, treeNode: any, resolve: any) => {
       getMenus(tree.id).then(res => {
@@ -41,7 +41,7 @@ export default defineComponent({
                 <el-row gutter={20}>
                   <el-col span={4}>
                     <el-form-item prop="a">
-                      <el-input v-model={state.searchForm.a} />
+                      <el-input v-model={search.searchForm.a} />
                     </el-form-item>
                   </el-col>
                   <el-col span={8}>

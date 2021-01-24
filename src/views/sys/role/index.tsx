@@ -6,7 +6,7 @@ import { IRole } from '@/types/model/entity/sys'
 export default defineComponent({
   name: 'SysRole',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IRole>({ api: '/api/roles' })
+    const { state, searchTable, search, resetSearch } = useTable<IRole>({ api: '/api/users' })
     return () => {
       return (
         <MsTable
@@ -26,7 +26,7 @@ export default defineComponent({
                 <el-row gutter={20}>
                   <el-col span={4}>
                     <el-form-item prop="a">
-                      <el-input v-model={state.searchForm.a} />
+                      <el-input v-model={search.searchForm.a} />
                     </el-form-item>
                   </el-col>
                   <el-col span={8}>

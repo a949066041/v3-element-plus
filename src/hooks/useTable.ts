@@ -1,23 +1,32 @@
 import { get, IPageResponse } from '@/api'
-import { IUseTableOption, IUseTable, IUseTableState } from '@/types/hooks'
+import { IUseTableOption, IUseTable, IUseTableState, IUseTableSearchState } from '@/types/hooks'
 import { reactive, onMounted, watch } from 'vue'
 
 const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseTable<T> {
+  const search: IUseTableSearchState = reactive({
+    searchForm: {},
+    initForm: {}
+  })
   const state: IUseTableState<T> = reactive({
     total: 0,
     dataSource: [],
     loading: false,
     page: 1,
     size: 10,
-    pagination: true,
-    searchForm: {}
+    pagination: true
   })
 
   const toggleLoading = (val: boolean) => { state.loading = val }
 
   const getTable = () => {
     toggleLoading(true)
-    get(options.api, { ...state.searchForm, page: state.page - 1, size: state.size }).then((res: IPageResponse<T>) => {
+    const params = {
+      ...search.searchForm,
+      ...search.initForm,
+      page: state.page - 1,
+      size: state.size
+    }
+    get(options.api, params).then((res: IPageResponse<T>) => {
       state.total = res.totalElements
       state.dataSource = res.content
     }).finally(() => { toggleLoading(false) })
@@ -32,7 +41,7 @@ const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseT
   }
 
   const resetSearch = () => {
-    state.searchForm = {}
+    search.searchForm = {}
     searchTable()
   }
 
@@ -41,6 +50,7 @@ const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseT
   onMounted(() => { firstLoad && getTable() })
 
   return {
+    search,
     state,
     getTable,
     resetSearch,

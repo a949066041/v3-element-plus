@@ -45,6 +45,10 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: 15
     },
+    page: {
+      type: Number as PropType<number>,
+      default: 0
+    },
     checkboxConf: {
       type: Object as PropType<object>,
       default: () => ({})

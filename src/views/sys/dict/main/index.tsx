@@ -6,7 +6,7 @@ import { IDict } from '@/types/model/entity/sys'
 export default defineComponent({
   name: 'DictMain',
   setup () {
-    const { state, searchTable, resetSearch } = useTable<IDict>({ api: '/api/dict' })
+    const { state, searchTable, resetSearch, search } = useTable<IDict>({ api: '/api/dict' })
     return () => {
       return (
         <MsTable
@@ -24,7 +24,7 @@ export default defineComponent({
                 <el-row gutter={20}>
                   <el-col span={4}>
                     <el-form-item prop="a">
-                      <el-input v-model={state.searchForm.a} />
+                      <el-input v-model={search.searchForm.a} />
                     </el-form-item>
                   </el-col>
                   <el-col span={8}>
