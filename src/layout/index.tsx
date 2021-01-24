@@ -9,7 +9,7 @@ export default defineComponent({
     return () => {
       return (
         <el-container class="ms__layout">
-          <el-aside>
+          <el-aside width="200px">
             <SideBar />
           </el-aside>
 
