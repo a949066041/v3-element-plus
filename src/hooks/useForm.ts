@@ -1,51 +1,47 @@
-import { computed, reactive, ref, toRefs, watch } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import action, { get } from '@/api'
 import { ElMessage } from 'element-plus'
 
 const useModal = function<T> (options: any, props: any, emit: any) {
   const form = ref<any>(null)
-  const states = reactive({
+  const state = reactive({
     isAdd: computed<boolean>(() => !props.formId),
-    formInfo: {
-      username: '123'
-    },
+    formInfo: {},
     loading: false
   })
 
   const toggleVisible = (val: boolean) => { emit('update:visible', val) }
 
   const findFormById = () => {
-    if (!states.isAdd && props.formId) {
-      states.loading = true
+    if (!state.isAdd && props.formId) {
+      state.loading = true
       get(options.findApi, { formId: props.formId })
         .then((res) => {
-          states.formInfo = res
+          state.formInfo = res
         }).finally(() => {
-          states.loading = false
+          state.loading = false
         })
     }
   }
 
   const resetForm = () => {
-    states.formInfo = {
-      username: '1233'
-    }
+    state.formInfo = {}
     form.value.resetFields()
   }
 
   const saveForm = () => {
     form.value.validate((valid: boolean) => {
       if (valid) {
-        action[states.isAdd ? 'post' : 'put'](options.saveUrl, states.formInfo)
+        action[state.isAdd ? 'post' : 'put'](options.saveUrl, state.formInfo)
           .then(() => {
-            ElMessage.success(states.isAdd ? '添加成功' : '编辑成功')
+            ElMessage.success(state.isAdd ? '添加成功' : '编辑成功')
             toggleVisible(false)
           })
       }
     })
   }
 
-  watch(() => props.formId, (val: string | number) => { val && findFormById() })
+  watch(() => props.visible, (val: string | number) => { val && findFormById() })
 
   watch(() => props.visible, (val) => {
     if (!val) {
@@ -58,7 +54,7 @@ const useModal = function<T> (options: any, props: any, emit: any) {
     saveForm,
     toggleVisible,
     form,
-    ...toRefs(states)
+    state
   }
 }
 

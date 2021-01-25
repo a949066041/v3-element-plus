@@ -1,8 +1,11 @@
-import { defineComponent, PropType, ref } from 'vue'
+import { computed, defineComponent, PropType, ref } from 'vue'
 
 export default defineComponent({
   name: 'MsDialog',
   props: {
+    onClose: {
+      type: Function
+    },
     title: {
       type: String as PropType<string>,
       default: ''
@@ -34,12 +37,15 @@ export default defineComponent({
   },
   emits: ['update:visible', 'close', 'open', 'ok'],
   setup (props, { emit, slots }) {
+    const visible = computed(() => props.visible)
     const disabled = ref<boolean>(false)
-    const toggleVisible = (val: boolean) => { emit('update:visible', val) }
+    // const toggleVisible = (val: boolean) => { emit('update:visible', val) }
 
     const cancel = () => {
       emit('close')
-      toggleVisible(false)
+      console.log('close')
+      // emit('update:visible', false)
+      // toggleVisible(false)
     }
 
     const open = () => {
@@ -55,7 +61,7 @@ export default defineComponent({
       return (
         <el-dialog
           append-to-body
-          model-value={props.visible}
+          v-model={visible.value}
           close-on-click-modal={false}
           before-close={cancel}
           onOpen={open}

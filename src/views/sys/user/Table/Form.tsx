@@ -15,29 +15,28 @@ const IFormProps = {
 
 export default defineComponent({
   name: 'SysForm',
-  components: { MsDialog },
   props: IFormProps,
   setup (props, { emit }) {
-    const { formInfo, toggleVisible, form } = useModal({
+    const { state, form } = useModal({
       findApi: 'api/users/findById'
     }, props, emit)
 
     return () => {
       return (
-        <ms-dialog
-          visible={props.visible}
-          onClose={() => { toggleVisible(false) }}
+        <MsDialog
+          v-model={[props.visible, 'visible']}
+          onClose={() => { emit('update:visible', false) }}
         >
-          <el-form ref={form} model={formInfo.value}>
+          <el-form ref={form} model={state.formInfo}>
             <el-row gutter={20}>
               <el-col span={12}>
                 <el-form-item prop="username">
-                  <el-input prefix-icon="el-icon-user" v-model={[(formInfo.value as any).avatarName]} placeholder="用户名/邮箱/手机号" />
+                  <el-input prefix-icon="el-icon-user" v-model={[(state.formInfo as any).username]} placeholder="用户名/邮箱/手机号" />
                 </el-form-item>
               </el-col>
             </el-row>
           </el-form>
-        </ms-dialog>
+        </MsDialog>
       )
     }
   }
