@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from 'vue'
-import MsDialog from '@/components/Dialog'
+import MsFull from '@/components/Full'
 import useModal from '@/hooks/useForm'
 
 const IFormProps = {
@@ -17,15 +17,15 @@ export default defineComponent({
   name: 'SysForm',
   props: IFormProps,
   setup (props, { emit }) {
-    const { state, form } = useModal({
+    const { state, form, toggleVisible } = useModal({
       findApi: 'api/users/findById'
     }, props, emit)
 
     return () => {
       return (
-        <MsDialog
-          v-model={[props.visible, 'visible']}
-          onClose={() => { emit('update:visible', false) }}
+        <MsFull
+          visible={props.visible}
+          onClose={() => { toggleVisible(false) }}
         >
           <el-form ref={form} model={state.formInfo}>
             <el-row gutter={20}>
@@ -36,7 +36,7 @@ export default defineComponent({
               </el-col>
             </el-row>
           </el-form>
-        </MsDialog>
+        </MsFull>
       )
     }
   }

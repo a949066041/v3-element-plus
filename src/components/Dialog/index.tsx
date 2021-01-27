@@ -1,81 +1,37 @@
-import { computed, defineComponent, PropType, ref } from 'vue'
+import { defineComponent } from 'vue'
+import { modalProps, useModal } from '../Modal/useModal'
 
 export default defineComponent({
   name: 'MsDialog',
-  props: {
-    onClose: {
-      type: Function
-    },
-    title: {
-      type: String as PropType<string>,
-      default: ''
-    },
-    visible: {
-      type: Boolean as PropType<boolean>,
-      default: false
-    },
-    width: {
-      type: String as PropType<string>,
-      default: ''
-    },
-    okBtn: {
-      type: String as PropType<string>,
-      default: '确定'
-    },
-    isAdd: {
-      type: Boolean as PropType<boolean>,
-      default: false
-    },
-    footer: {
-      type: Boolean as PropType<boolean>,
-      default: true
-    },
-    height: {
-      type: String as PropType<string>,
-      default: ''
-    }
-  },
-  emits: ['update:visible', 'close', 'open', 'ok'],
+  props: modalProps,
+  emits: ['close', 'open', 'ok'],
   setup (props, { emit, slots }) {
-    const visible = computed(() => props.visible)
-    const disabled = ref<boolean>(false)
-    // const toggleVisible = (val: boolean) => { emit('update:visible', val) }
-
-    const cancel = () => {
-      emit('close')
-      console.log('close')
-      // emit('update:visible', false)
-      // toggleVisible(false)
-    }
-
-    const open = () => {
-      disabled.value = false
-      emit('open')
-    }
-
-    const ok = () => {
-      disabled.value = true
-      emit('ok')
-    }
+    const {
+      handleOpen,
+      handleCancel,
+      handleOkClick,
+      disabledOk,
+      title
+    } = useModal(emit, props)
     return () => {
       return (
         <el-dialog
           append-to-body
-          v-model={visible.value}
+          model-value={props.visible}
           close-on-click-modal={false}
-          before-close={cancel}
-          onOpen={open}
-          title={props.title ? props.title : props.isAdd ? '新增' : '修改'}
+          before-close={handleCancel}
+          onOpen={handleOpen}
+          title={title.value}
         >
           {{
             default: () => slots.default && slots.default(),
             footer: () => props.footer && slots.footer ? slots.footer() : (
               <>
-                <el-button type="text" onClick={cancel}>取 消</el-button>
+                <el-link type="primary" onClick={handleCancel}>取 消</el-link>
                 <el-button
                   type="primary"
-                  disabled={disabled.value}
-                  onClick={ok}
+                  disabled={disabledOk.value}
+                  onClick={handleOkClick}
                 >
                   { props.okBtn }
                 </el-button>
