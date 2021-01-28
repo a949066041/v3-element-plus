@@ -25,10 +25,10 @@ export default defineComponent({
         >
           <div class="ms__drawer__form">
             <div class="form__context">
-              { slots.default && slots.default() }
+              { slots.default && props.visible && slots.default() }
             </div>
             <div class="form__footer">
-              <el-link type="primary" onClick={handleCancel}>取 消</el-link>
+              <el-link type="text" onClick={handleCancel}>取 消</el-link>
               <el-button
                 type="primary"
                 disabled={disabledOk.value}

@@ -6,7 +6,7 @@ const useModal = function<T> (options: any, props: any, emit: any) {
   const form = ref<any>(null)
   const state = reactive({
     isAdd: computed<boolean>(() => !props.formId),
-    formInfo: {},
+    formInfo: {} as any,
     loading: false
   })
 

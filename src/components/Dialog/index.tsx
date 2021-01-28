@@ -16,7 +16,6 @@ export default defineComponent({
     return () => {
       return (
         <el-dialog
-          append-to-body
           model-value={props.visible}
           close-on-click-modal={false}
           before-close={handleCancel}
@@ -27,7 +26,7 @@ export default defineComponent({
             default: () => slots.default && slots.default(),
             footer: () => props.footer && slots.footer ? slots.footer() : (
               <>
-                <el-link type="primary" onClick={handleCancel}>取 消</el-link>
+                <el-button type="text" onClick={handleCancel}>取 消</el-button>
                 <el-button
                   type="primary"
                   disabled={disabledOk.value}
