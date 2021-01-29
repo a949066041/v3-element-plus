@@ -1,10 +1,11 @@
 import { computed, reactive, ref, watch } from 'vue'
 import action, { get } from '@/api'
 import { ElMessage } from 'element-plus'
+import { IUseModal, IUseModalState } from '@/types/hooks'
 
-const useModal = function<T> (options: any, props: any, emit: any) {
+const useModal = function<T> (options: any, props: any, emit: any): IUseModal<T> {
   const form = ref<any>(null)
-  const state = reactive({
+  const state: IUseModalState<T> = reactive({
     isAdd: computed<boolean>(() => !props.formId),
     formInfo: {} as any,
     loading: false
@@ -25,7 +26,7 @@ const useModal = function<T> (options: any, props: any, emit: any) {
   }
 
   const resetForm = () => {
-    state.formInfo = {}
+    state.formInfo = {} as T
     form.value.resetFields()
   }
 

@@ -99,7 +99,7 @@ export const get = (url: string, params?: object) =>
 export const deletes = (url: string, params?: object) =>
   baseMethod2('DELETE', url, params)
 
-export const cacheAction = (url: string, params = {}): Promise<any> => {
+export const cacheAction = <T>(url: string, params = {}): Promise<T> => {
   return new Promise((resolve, reject) => {
     const cacheKey = `${url}${JSON.stringify(params)}`
     if (((store.state as any).common as IStoreCommon).commonData[cacheKey]) {
@@ -109,7 +109,7 @@ export const cacheAction = (url: string, params = {}): Promise<any> => {
       return
     }
     get(url, params)
-      .then(res => {
+      .then((res: T) => {
         store.dispatch('common/setCommonData', { type: cacheKey, data: res })
         resolve(res)
       })

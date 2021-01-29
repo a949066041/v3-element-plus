@@ -1,6 +1,5 @@
 import { defineComponent, ref, onMounted, watch } from 'vue'
 import { getCacheDept } from '@/api/sys/dept'
-import { IPageResponse } from '@/api'
 import { IDept } from '@/types/model/entity/sys'
 
 export default defineComponent({
@@ -23,9 +22,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      getCacheDept().then((res: IPageResponse<IDept>) => {
-        deptData.value = res.content
-      })
+      getCacheDept().then((res) => { deptData.value = res.content })
     })
 
     watch(filterText, (val) => { tree.value.filter(val) })
