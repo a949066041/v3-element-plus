@@ -2,8 +2,10 @@ import { defineComponent, onMounted, PropType, reactive } from 'vue'
 import MsDialog from '@/components/Dialog'
 import useModal from '@/hooks/useModal'
 import { getAllJob } from '@/api/sys/job'
-import { IPageResponse } from '@/api'
-import { IJob, IUser } from '@/types/model/entity/sys'
+import { getCacheDept } from '@/api/sys/dept'
+import { getCacheRoles } from '@/api/sys/role'
+import { IDept, IJob, IRole, IUser } from '@/types/model/entity/sys'
+import MsSelect from '@/components/Select'
 
 const IFormProps = {
   formId: {
@@ -22,15 +24,22 @@ export default defineComponent({
   setup (props, { emit }) {
     const lists: {
       jobList: IJob[];
+      deptList: IDept[];
+      roleList: IRole[];
     } = reactive({
-      jobList: []
+      jobList: [],
+      deptList: [],
+      roleList: []
     })
-    const { state, form, toggleVisible } = useModal<IUser>({
-      findApi: 'api/users/findById'
+    const { state, form, toggleVisible, saveForm } = useModal<IUser>({
+      findApi: 'api/users/findById',
+      saveUrl: 'api/users/'
     }, props, emit)
 
     onMounted(() => {
       getAllJob().then((data) => { lists.jobList = data.content })
+      getCacheDept().then((data) => { lists.deptList = data.content })
+      getCacheRoles().then((data) => { lists.roleList = data.content })
     })
 
     return () => {
@@ -38,11 +47,12 @@ export default defineComponent({
         <MsDialog
           visible={props.visible}
           onClose={() => { toggleVisible(false) }}
+          onOk={saveForm}
         >
           {
             props.visible &&
             (
-              <el-form v-loading={state.loading} ref={form} model={state.formInfo}>
+              <el-form v-loading={state.loading} label-position="left" label-width="100px" ref={form} model={state.formInfo}>
                 <el-row gutter={20}>
                   <el-col span={12}>
                     <el-form-item label="用户名" prop="username">
@@ -65,18 +75,34 @@ export default defineComponent({
                     </el-form-item>
                   </el-col>
                   <el-col span={12}>
+                    <el-form-item label="部门" prop="deptId">
+                      <MsSelect v-model={state.formInfo.deptId} dataSource={lists.deptList} />
+                    </el-form-item>
+                  </el-col>
+                  <el-col span={12}>
                     <el-form-item label="岗位" prop="jobs">
-                      <el-select v-model={state.formInfo.jobs} multiple>
-                        {
-                          lists.jobList.map((item) => (
-                            <el-option
-                              key={item.name}
-                              label={item.name}
-                              value={item.id}
-                            />
-                          ))
-                        }
-                      </el-select>
+                      <MsSelect v-model={state.formInfo.jobs} dataSource={lists.jobList} { ...{ multiple: true }} />
+                    </el-form-item>
+                  </el-col>
+                  <el-col span={12}>
+                    <el-form-item label="性别" prop="gender">
+                      <el-radio-group v-model={state.formInfo.gender}>
+                        <el-radio label="男" />
+                        <el-radio label="女" />
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                  <el-col span={12}>
+                    <el-form-item label="状态" prop="enabled">
+                      <el-radio-group v-model={state.formInfo.enabled}>
+                        <el-radio label={true}>激活</el-radio>
+                        <el-radio label={false}>禁用</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                  <el-col span={24}>
+                    <el-form-item label="角色" prop="roles">
+                      <MsSelect v-model={state.formInfo.roles} dataSource={lists.roleList} { ...{ multiple: true }} />
                     </el-form-item>
                   </el-col>
                 </el-row>

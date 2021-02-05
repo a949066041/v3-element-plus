@@ -49,7 +49,7 @@ export default defineComponent({
                       </el-form-item>
                     </el-col>
                     <el-col span={8}>
-                      <el-button type="primary" onClick={searchTable}>搜索</el-button>
+                      <el-button type="primary" disabled={state.loading} onClick={searchTable}>搜索</el-button>
                       <el-button type="primary" onClick={() => openDialog(1)}>重置</el-button>
                     </el-col>
                   </el-row>

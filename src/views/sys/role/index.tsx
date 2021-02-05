@@ -6,7 +6,7 @@ import { IRole } from '@/types/model/entity/sys'
 export default defineComponent({
   name: 'SysRole',
   setup () {
-    const { state, searchTable, search, resetSearch } = useTable<IRole>({ api: '/api/users' })
+    const { state, searchTable, search, resetSearch } = useTable<IRole>({ api: '/api/roles' })
     return () => {
       return (
         <MsTable

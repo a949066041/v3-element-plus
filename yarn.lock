@@ -4851,10 +4851,10 @@ elegant-spinner@^1.0.1:
   resolved "https://registry.yarnpkg.com/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
   integrity sha1-2wQ1IcldfjA/2PNFvtwzSc+wcp4=
 
-element-plus@^1.0.2-beta.29:
-  version "1.0.2-beta.29"
-  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.0.2-beta.29.tgz#0ce640e07a1fdfd89a75bfacb2006a0899a6b316"
-  integrity sha512-wJKXQS58OXOBzOViQ44LfvauitlSx7HSZ3DAAgShZL3tUTnXX0AQE6w+UISAwql3lp2g93M3Yd+JMNnt8VpAag==
+element-plus@^1.0.2-beta.31:
+  version "1.0.2-beta.31"
+  resolved "https://registry.yarnpkg.com/element-plus/-/element-plus-1.0.2-beta.31.tgz#61a96111d9e9dc9d1ea511e213946db681471321"
+  integrity sha512-ujM/vLqh3LViUbWcACpmQb60FT4o/nE1nRmPTeMcVhcgML1+BA51woPG5FOmAF8AWFB1m73VGzfex3hCoC6vJA==
   dependencies:
     "@popperjs/core" "^2.4.4"
     async-validator "^3.4.0"

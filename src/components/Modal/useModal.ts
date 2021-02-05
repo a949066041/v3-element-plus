@@ -4,6 +4,9 @@ export const modalProps = {
   onClose: {
     type: Function as PropType<Function>
   },
+  onOk: {
+    type: Function as PropType<Function>
+  },
   title: {
     type: String as PropType<string>,
     default: ''
