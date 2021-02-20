@@ -111,6 +111,7 @@ export default defineComponent({
         <div class="ms__table">
           { searchRender() }
           { renderTable() }
+          { slots.default?.() }
         </div>
       )
     }
