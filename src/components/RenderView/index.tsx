@@ -15,6 +15,10 @@ const MODAL: { [key: string]: any } = {
 export default defineComponent({
   name: 'RenderView',
   props: {
+    api: {
+      type: String,
+      default: ''
+    },
     search: {
       type: Object as PropType<any>,
       default: () => ({})
@@ -39,24 +43,9 @@ export default defineComponent({
       dialog: dialog as any,
       formInfo: formInfo as any
     })
-    const { state, searchTable, search: searchState, resetSearch } = useTable<any>({ api: '/api/roles' })
+    const { state, searchTable, search: searchState, resetSearch } = useTable<any>({ api: props.api })
     const search: any = props.search
     return () => {
-      const modals = props.modals.map((item, index) => (
-        h(MODAL[item.type], {
-          visible: (dialogs.dialog as any)[item.value],
-          onClose: () => { (dialogs.dialog as any)[item.value] = false },
-          onOk: () => { (dialogs.dialog as any)[item.value] = false },
-          key: index
-        }, {
-          default: () => (<RenderForm
-            model={dialogs.formInfo[item.value]}
-            config={item}
-          />)
-        }
-        )
-      ))
-
       return (
         <MsTable
           v-models={[[state.size, 'size'], [state.page, 'page']]}
@@ -66,7 +55,7 @@ export default defineComponent({
           {{
             search: () => (
               <RenderForm
-                model={searchState.searchForm}
+                v-model={[searchState.searchForm, 'model']}
                 config={props.search}
               >
                 <>
@@ -78,6 +67,7 @@ export default defineComponent({
                           disabled={state.loading}
                           onClick={() => {
                             if (['search', 'reset'].includes(item.type)) {
+                              console.log(searchState.searchForm)
                               item.type === 'search' ? searchTable() : resetSearch()
                               return
                             }
@@ -93,7 +83,20 @@ export default defineComponent({
                 </>
               </RenderForm>
             ),
-            default: () => modals
+            default: () => props.modals.map((item, index) => (
+              h(MODAL[item.type], {
+                visible: (dialogs.dialog as any)[item.value],
+                onClose: () => { (dialogs.dialog as any)[item.value] = false },
+                onOk: () => { (dialogs.dialog as any)[item.value] = false },
+                key: index
+              }, {
+                default: () => (<RenderForm
+                  model={dialogs.formInfo[item.value]}
+                  config={item}
+                />)
+              }
+              )
+            ))
           }}
         </MsTable>
       )

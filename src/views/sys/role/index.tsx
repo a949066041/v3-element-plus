@@ -8,6 +8,7 @@ export default defineComponent({
     return () => {
       return (
         <RenderView
+          api='/api/roles'
           search={searchConf}
           table={table}
           modals={modals}

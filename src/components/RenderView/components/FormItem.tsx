@@ -1,9 +1,11 @@
 import { defineComponent, h, PropType } from 'vue'
 import { ElInput, ElInputNumber } from 'element-plus'
+import MsSelect from '@/components/Select'
 
 const COMPONENTS: { [key: string]: any } = {
   input: ElInput,
-  inputNumber: ElInputNumber
+  inputNumber: ElInputNumber,
+  choose: MsSelect
 }
 
 export default defineComponent({
@@ -35,14 +37,13 @@ export default defineComponent({
           { h(COMPONENTS[conf.type], {
             ...conf.props,
             modelValue: props.value,
-            onInput: (val: string) => {
-              emit('input', val)
-            },
+            onInput: (val: string) => { emit('input', val) },
             onchange: (val: any) => {
-              const value = val.target.value
-              conf.trigger.change.map((item: any) => {
-                emit('trigger', { value, item })
-              })
+              console.log(val)
+              // const value = val.target.value
+              // conf.trigger.change.map((item: any) => {
+              //   emit('trigger', { value, item })
+              // })
             }
           }) }
         </el-form-item>

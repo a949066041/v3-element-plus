@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, watch } from 'vue'
 import FormItem from './FormItem'
 
 export default defineComponent({
@@ -14,9 +14,11 @@ export default defineComponent({
       default: () => ({})
     }
   },
-  setup (props, { slots }) {
+  setup (props, { slots, emit }) {
     const config: any = props.config
     const model: any = props.model
+
+    watch(() => props.model, (val: any) => { emit('update:model', val) }, { deep: true })
     return () => {
       return (
         <el-form model={model}>

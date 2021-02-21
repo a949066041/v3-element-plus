@@ -10,6 +10,16 @@ const searchConf = {
         placeholder: '请输入input。。。'
       },
       span: 6
+    },
+    {
+      type: 'choose',
+      key: 'b',
+      props: {
+        clearable: true,
+        dataSource: [{ id: 1, name: '123' }, { id: 2, name: '234' }],
+        placeholder: '请选择select。。。'
+      },
+      span: 6
     }
   ],
   btns: [

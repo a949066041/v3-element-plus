@@ -17,7 +17,7 @@
     "animate.css": "^4.1.1",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "element-plus": "^1.0.2-beta.31",
+    "element-plus": "^1.0.2-beta.32",
     "js-cookie": "^2.2.1",
     "jsencrypt": "^3.0.0-rc.1",
     "right-pad": "^1.0.1",
