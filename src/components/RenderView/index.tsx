@@ -1,8 +1,16 @@
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, PropType, reactive, h } from 'vue'
 import useTable from '@/hooks/useTable'
 import MsTable from '@/components/Table'
-import FormItem from './components/FormItem'
+import RenderForm from './components/RenderForm'
 import MsDialog from '@/components/Dialog'
+import MsDrawer from '@/components/Drawer'
+import MsFull from '@/components/Full'
+
+const MODAL: { [key: string]: any } = {
+  dialog: MsDialog,
+  drawer: MsDrawer,
+  full: MsFull
+}
 
 export default defineComponent({
   name: 'RenderView',
@@ -35,17 +43,18 @@ export default defineComponent({
     const search: any = props.search
     return () => {
       const modals = props.modals.map((item, index) => (
-        <MsDialog
-          visible={(dialogs.dialog as any)[item.value]}
-          onClose={() => { (dialogs.dialog as any)[item.value] = false }}
-          onOk={() => { (dialogs.dialog as any)[item.value] = false }}
-        >
-          <el-form ref="form" model={dialogs.formInfo[item.value]} label-width="80px">
-            <el-form-item label={`test${index}`}>
-              <el-input v-model={[dialogs.formInfo[item.value].a]} />
-            </el-form-item>
-          </el-form>
-        </MsDialog>
+        h(MODAL[item.type], {
+          visible: (dialogs.dialog as any)[item.value],
+          onClose: () => { (dialogs.dialog as any)[item.value] = false },
+          onOk: () => { (dialogs.dialog as any)[item.value] = false },
+          key: index
+        }, {
+          default: () => (<RenderForm
+            model={dialogs.formInfo[item.value]}
+            config={item}
+          />)
+        }
+        )
       ))
 
       return (
@@ -56,39 +65,33 @@ export default defineComponent({
         >
           {{
             search: () => (
-              <el-form model={searchState.searchForm}>
-                <el-row gutter={search.gutter}>
-                  {
-                    (search.items as []).map((item: any) => (
-                      <el-col span={item.span || search.baseSpan}>
-                        <FormItem
-                          conf={item}
-                          value={searchState.searchForm[item.key]}
-                          onInput={(e: any) => { searchState.searchForm[item.key] = e }}
-                        />
-                      </el-col>
-                    ))
-                  }
-                  {
-                    <el-col span={8}>
-                      {
-                        search.btns.map((item: any) => (
-                          <el-button
-                            type={item.theme}
-                            disabled={state.loading}
-                            onClick={item.type === 'search' ? searchTable : resetSearch}
-                          >
-                            { item.text }
-                          </el-button>
-                        ))
-                      }
-                    </el-col>
-                  }
-                  <el-button onClick={() => { dialogs.dialog.modal1 = true }}>open</el-button>
-                  <el-button onClick={() => { dialogs.dialog.modal2 = true }}>open</el-button>
-                  <el-button onClick={() => { dialogs.dialog.modal3 = true }}>open</el-button>
-                </el-row>
-              </el-form>
+              <RenderForm
+                model={searchState.searchForm}
+                config={props.search}
+              >
+                <>
+                  <el-col span={8}>
+                    {
+                      search.btns.map((item: any) => (
+                        <el-button
+                          type={item.theme}
+                          disabled={state.loading}
+                          onClick={() => {
+                            if (['search', 'reset'].includes(item.type)) {
+                              item.type === 'search' ? searchTable() : resetSearch()
+                              return
+                            }
+                            dialogs.dialog[item.trigger] = true
+                            console.log(dialogs.dialog)
+                          }}
+                        >
+                          { item.text }
+                        </el-button>
+                      ))
+                    }
+                  </el-col>
+                </>
+              </RenderForm>
             ),
             default: () => modals
           }}

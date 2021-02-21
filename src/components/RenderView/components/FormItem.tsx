@@ -21,6 +21,10 @@ export default defineComponent({
     onInput: {
       type: Function as PropType<Function>,
       default: () => ({})
+    },
+    onTrigger: {
+      type: Function as PropType<Function>,
+      default: () => ({})
     }
   },
   setup (props, { emit }) {
@@ -32,7 +36,13 @@ export default defineComponent({
             ...conf.props,
             modelValue: props.value,
             onInput: (val: string) => {
-              console.log(emit('input', val))
+              emit('input', val)
+            },
+            onchange: (val: any) => {
+              const value = val.target.value
+              conf.trigger.change.map((item: any) => {
+                emit('trigger', { value, item })
+              })
             }
           }) }
         </el-form-item>
