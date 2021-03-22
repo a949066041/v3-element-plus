@@ -24,7 +24,7 @@ export default defineComponent({
         <el-form model={model}>
           <el-row gutter={config.gutter}>
             {
-              (config.form as []).map((item: any) => (
+              (config.form).map((item: any) => (
                 <el-col span={item.span || config.baseSpan}>
                   <FormItem
                     conf={item}
