@@ -13,7 +13,7 @@ export default defineComponent({
     }
   },
   setup (props) {
-    const { state, searchTable, search } = useTable<IUser>({ api: '/api/users' })
+    const { state, searchTable, search, resetSearch } = useTable<IUser>({ api: '/api/users' })
 
     const { state: mState, openDialog } = useTableModal()
     // 部门变化
@@ -36,7 +36,8 @@ export default defineComponent({
               { dataIndex: 'gender', label: '性别' },
               { dataIndex: 'phone', label: '电话' },
               { dataIndex: 'email', label: '邮箱' },
-              { dataIndex: 'createTime', label: '创建时间', time: true }
+              { dataIndex: 'createTime', label: '创建时间', time: true },
+              { dataIndex: 'tools', label: '操作', slots: true }
             ]}
           >
             {{
@@ -50,10 +51,16 @@ export default defineComponent({
                     </el-col>
                     <el-col span={8}>
                       <el-button type="primary" disabled={state.loading} onClick={searchTable}>搜索</el-button>
-                      <el-button type="primary" onClick={() => openDialog(1)}>重置</el-button>
+                      <el-button type="primary" onClick={resetSearch}>重置</el-button>
+                      <el-button type="primary" onClick={() => { openDialog() }}>新增</el-button>
                     </el-col>
                   </el-row>
                 </el-form>
+              ),
+              tools: ({ row }: { row: IUser }) => (
+                <>
+                  <el-button size="small" type="primary" onClick={() => { openDialog(row.id) }} >修改</el-button>
+                </>
               )
             }}
           </MsTable>

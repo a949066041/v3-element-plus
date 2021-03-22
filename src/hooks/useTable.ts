@@ -66,7 +66,7 @@ const useTableModal = function (): IUseTableModal {
 
   const toggleVisible = (val: boolean) => { state.visible = val }
 
-  const openDialog = (formId?: number | string) => {
+  const openDialog = (formId: number | string = '') => {
     state.formId = formId
     toggleVisible(true)
   }
