@@ -1,6 +1,7 @@
 import { get, IPageResponse } from '@/api'
 import { IUseTableOption, IUseTable, IUseTableState, IUseTableSearchState, IUseTableModalState, IUseTableModal } from '@/types/hooks'
 import { reactive, onMounted, watch } from 'vue'
+import { useExpose } from './useExpose'
 
 const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseTable<T> {
   const search: IUseTableSearchState = reactive({
@@ -48,6 +49,10 @@ const useTable = function<T> (options: IUseTableOption, firstLoad = true): IUseT
   watch([() => state.page, () => state.size], getTable)
 
   onMounted(() => { firstLoad && getTable() })
+
+  useExpose({
+    searchTable
+  })
 
   return {
     search,
