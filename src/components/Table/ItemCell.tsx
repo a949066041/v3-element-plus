@@ -1,7 +1,9 @@
 import { defineComponent, PropType, h, Slot } from 'vue'
 import { parseTime } from '@/utils'
 import { IItemConfig } from '@/types/components'
-
+// 修改了源码中的深拷贝
+// node_modules/element-plus/lib/el-table-column/index.js
+// return vue.h('div', props, [prefix, children]);
 export default defineComponent({
   name: 'ItemCell',
   props: {
@@ -24,6 +26,7 @@ export default defineComponent({
     return () => {
       return (
         <el-table-column
+          key={dataIndex}
           { ...slotScope }
           { ...context?.config }
           prop={context?.dataIndex}
