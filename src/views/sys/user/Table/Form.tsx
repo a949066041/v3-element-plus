@@ -32,8 +32,8 @@ export default defineComponent({
       roleList: []
     })
     const { state, form, toggleVisible, saveForm } = useModal<IUser>({
-      findApi: 'api/users/findById',
-      saveUrl: 'api/users/'
+      findApi: '/api/users/findById',
+      saveUrl: '/api/users/'
     }, props, emit)
 
     onMounted(() => {

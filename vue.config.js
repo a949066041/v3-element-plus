@@ -9,7 +9,7 @@ module.exports = {
       errors: true
     },
     port: '9999',
-    proxy: process.env.VUE_APP_BASE_API // api 的 base_url
+    proxy: 'http://47.93.102.44:8000/' // api 的 base_url
   },
   productionSourceMap: false,
   chainWebpack (config) {

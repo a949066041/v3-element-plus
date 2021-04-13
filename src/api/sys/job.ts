@@ -8,5 +8,5 @@ export const getAllJob = () => {
     size: 9999,
     enabled: true
   }
-  return cacheAction<IPageResponse<IJob>>('api/job', params)
+  return cacheAction<IPageResponse<IJob>>('/api/job', params)
 }

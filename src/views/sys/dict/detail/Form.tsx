@@ -21,8 +21,8 @@ export default defineComponent({
   setup (props, { emit }) {
     const parent = useParent()
     const { state, form, toggleVisible, saveForm } = useModal<IDictDetail>({
-      findApi: 'api/dictDetail/findById',
-      saveUrl: 'api/dictDetail/'
+      findApi: '/api/dictDetail/findById',
+      saveUrl: '/api/dictDetail/'
     }, props, emit)
 
     useExpose({

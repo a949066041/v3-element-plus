@@ -5,10 +5,10 @@ import store from '@/store'
 import router from '@/router'
 import { IStoreCommon } from '@/types/store/common'
 
-const baseURL = process.env.VUE_APP_BASE_API
+// const baseURL = process.env.VUE_APP_BASE_API
 
 const service = axios.create({
-  baseURL, // api 的 base_url
+  // baseURL, // api 的 base_url
   withCredentials: false
 })
 

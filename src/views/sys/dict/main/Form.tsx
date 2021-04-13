@@ -19,8 +19,8 @@ export default defineComponent({
   props: IFormProps,
   setup (props, { emit }) {
     const { state, form, toggleVisible, saveForm } = useModal<IDict>({
-      findApi: 'api/dict/findById',
-      saveUrl: 'api/dict/'
+      findApi: '/api/dict/findById',
+      saveUrl: '/api/dict/'
     }, props, emit)
 
     const rules = {
