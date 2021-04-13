@@ -2,10 +2,11 @@ import { computed, reactive, ref, watch } from 'vue'
 import action, { get } from '@/api'
 import { ElMessage } from 'element-plus'
 import { IUseModal, IUseModalState } from '@/types/hooks'
-import { useParent } from './useExpose'
+import { useParent, useBrother } from './useExpose'
 
 const useModal = function<T> (options: any, props: any, emit: any): IUseModal<T> {
   const { searchTable } = useParent()
+  const brother = useBrother()
   const form = ref<any>(null)
   const state: IUseModalState<T> = reactive({
     isAdd: computed<boolean>(() => !props.formId),
@@ -35,7 +36,7 @@ const useModal = function<T> (options: any, props: any, emit: any): IUseModal<T>
   const saveForm = () => {
     form.value.validate((valid: boolean) => {
       if (valid) {
-        action[state.isAdd ? 'post' : 'put'](options.saveUrl, state.formInfo)
+        action[state.isAdd ? 'post' : 'put'](options.saveUrl, { ...state.formInfo, ...brother?.handleBeforeSubmit() })
           .then(() => {
             ElMessage.success(state.isAdd ? '添加成功' : '编辑成功')
             toggleVisible(false)

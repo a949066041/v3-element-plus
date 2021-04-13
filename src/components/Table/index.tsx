@@ -1,7 +1,6 @@
 import { IItemConfig } from '@/types/components'
 import { computed, defineComponent, PropType } from 'vue'
 import ItemCell from './ItemCell'
-import ElTable from 'element-plus/es/el-table'
 const TABLE_ALIGN = ['left', 'center', 'right']
 
 export default defineComponent({

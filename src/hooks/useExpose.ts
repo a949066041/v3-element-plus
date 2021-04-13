@@ -15,7 +15,7 @@ export function useParent (): any {
 }
 
 // 获取同级暴露方法
-export const useBrother = () => {
+export const useBrother = (): any => {
   const instance = getCurrentInstance()
-  return (instance as any).proxy
+  return instance?.proxy
 }

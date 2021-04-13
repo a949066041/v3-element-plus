@@ -21,6 +21,7 @@ export default defineComponent({
           before-close={handleCancel}
           onOpen={handleOpen}
           title={title.value}
+          width={props.width}
         >
           {{
             default: () => slots.default && slots.default(),

@@ -53,8 +53,8 @@ export default defineComponent({
                     ),
                     tools: ({ row }: { row: IDict }) => (
                       <>
-                        <el-button onClick={() => { emit('update:dictName', row.name) }}>配置子字典</el-button>
-                        <el-button onClick={() => { openDialog(row.id) }}>修改</el-button>
+                        <el-button size="small" onClick={() => { emit('update:dict', { name: row.name, id: row.id }) }}>配置</el-button>
+                        <el-button size="small" onClick={() => { openDialog(row.id) }}>修改</el-button>
                       </>
                     )
                   }}

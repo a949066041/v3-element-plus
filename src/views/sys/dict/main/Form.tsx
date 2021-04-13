@@ -36,6 +36,7 @@ export default defineComponent({
           onClose={() => { toggleVisible(false) }}
           onOk={saveForm}
           isAdd={!props.formId}
+          width="600px"
         >
           {
             props.visible &&
