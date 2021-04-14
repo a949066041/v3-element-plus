@@ -53,9 +53,13 @@ export default defineComponent({
     checkboxConf: {
       type: Object as PropType<object>,
       default: () => ({})
+    },
+    onRowClick: {
+      type: Function as PropType<Function>,
+      default: () => ({})
     }
   },
-  emits: ['update:size', 'update:page'],
+  emits: ['update:size', 'update:page', 'row-click'],
   setup (props, { slots, attrs, emit }) {
     const tableAlign = computed(() => TABLE_ALIGN[props.align])
     return () => {
@@ -69,7 +73,7 @@ export default defineComponent({
       )
       const renderTable = () => {
         // 表格显示区域
-        const columnsRender = () => props.columns.map((item) => (
+        const columnsRender = () => props.columns.map((item: any) => (
           <ItemCell
             key={item.dataIndex}
             context={item}
@@ -95,6 +99,7 @@ export default defineComponent({
             <el-table
               v-loading={props.loading}
               { ...attrs }
+              onRowClick={(e: any) => emit('row-click', e)}
               ref="wxTable"
               data={props.dataSource}
               highlight-current-row

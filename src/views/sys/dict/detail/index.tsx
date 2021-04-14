@@ -49,6 +49,7 @@ export default defineComponent({
                     { dataIndex: 'createTime', label: '创建时间', time: true },
                     { dataIndex: 'tools', label: '操作', slots: true }
                   ]}
+                  loading={state.loading}
                 >
                   {{
                     search: () => (
@@ -69,7 +70,8 @@ export default defineComponent({
                     label: ({ value }: { value: string }) => (<div>{ value }</div>),
                     tools: ({ row }: { row: IDictDetail }) => (
                       <>
-                        <el-button size="small" onClick={() => { openDialog(row.id) }}>修改</el-button>
+                        <el-button type="primary" size="small" icon="el-icon-edit" onClick={() => { openDialog(row.id) }} />
+                        <el-button type="danger" size="small" icon="el-icon-delete" onClick={() => { openDialog(row.id) }} />
                       </>
                     )
                   }}

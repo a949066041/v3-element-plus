@@ -1,6 +1,7 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
 import useTable, { useTableModal } from '@/hooks/useTable'
+import useTools from '@/hooks/useTools'
 import { IDict } from '@/types/model/entity/sys'
 import DictForm from './Form'
 import '../index.scss'
@@ -11,6 +12,8 @@ export default defineComponent({
     const { state, searchTable, resetSearch, search } = useTable<IDict>({ api: '/api/dict' })
 
     const { state: mState, openDialog } = useTableModal()
+
+    const { handleDelByIds } = useTools({ api: '/api/dict' })
     return () => {
       return (
         <>
@@ -34,6 +37,8 @@ export default defineComponent({
                     { dataIndex: 'createTime', label: '创建时间', time: true },
                     { dataIndex: 'tools', label: '操作', slots: true }
                   ]}
+                  loading={state.loading}
+                  onRowClick={(row: IDict) => emit('update:dict', { name: row.name, id: row.id })}
                 >
                   {{
                     search: () => (
@@ -53,8 +58,17 @@ export default defineComponent({
                     ),
                     tools: ({ row }: { row: IDict }) => (
                       <>
-                        <el-button size="small" onClick={() => { emit('update:dict', { name: row.name, id: row.id }) }}>配置</el-button>
-                        <el-button size="small" onClick={() => { openDialog(row.id) }}>修改</el-button>
+                        <el-button type="primary" size="small" icon="el-icon-edit" onClick={() => { openDialog(row.id) }} />
+                        <el-popconfirm
+                          title="确定删除本条数据吗？"
+                          onConfirm={() => { handleDelByIds(row.id) }}
+                        >
+                          {{
+                            reference: () => (
+                              <el-button type="danger" size="small" icon="el-icon-delete" />
+                            )
+                          }}
+                        </el-popconfirm>
                       </>
                     )
                   }}

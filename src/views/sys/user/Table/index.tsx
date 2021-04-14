@@ -39,6 +39,7 @@ export default defineComponent({
               { dataIndex: 'createTime', label: '创建时间', time: true },
               { dataIndex: 'tools', label: '操作', slots: true }
             ]}
+            loading={state.loading}
           >
             {{
               search: () => (

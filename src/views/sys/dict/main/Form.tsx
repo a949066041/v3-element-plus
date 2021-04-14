@@ -32,6 +32,7 @@ export default defineComponent({
     return () => {
       return (
         <MsDialog
+          ref="ms-dialog"
           visible={props.visible}
           onClose={() => { toggleVisible(false) }}
           onOk={saveForm}
