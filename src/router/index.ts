@@ -5,12 +5,20 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import('@/views/login/index.tsx')
+    component: () => import('@/views/login/index')
   },
   {
     path: '/',
+    component: Layout,
+    redirect: '/',
     name: 'Home',
-    component: () => import('@/layout')
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/Home'),
+        name: 'Home'
+      }
+    ]
   },
   {
     path: '/system',
