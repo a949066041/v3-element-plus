@@ -1,7 +1,7 @@
 import { IMenu } from '@/types/model/entity/sys'
 import { get, IPageResponse } from '..'
 
-const prefixUrl = 'api/menus'
+const prefixUrl = '/api/menus'
 
 // 获取权限菜单
 export const buildMenus = (): Promise<IMenu[]> => {

@@ -1,4 +1,4 @@
-import { IUser } from '../entity/user'
+import { IUser } from '../entity/sys'
 
 export interface IRCode {
   img: string;

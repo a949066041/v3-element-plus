@@ -1,10 +1,16 @@
 .ms__layout {
   height: 100%;
   .el-aside {
-    width: 200px !important;
     .el-menu {
+      border-right-width: 0;
       height: 100%;
     }
+  }
+  .el-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 2px 2px 5px #e7e4e4;
   }
   .el-main {
     overflow: hidden;

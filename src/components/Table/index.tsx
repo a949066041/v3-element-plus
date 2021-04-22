@@ -1,3 +1,4 @@
+import { IItemConfig } from '@/types/components'
 import { computed, defineComponent, PropType } from 'vue'
 import ItemCell from './ItemCell'
 const TABLE_ALIGN = ['left', 'center', 'right']
@@ -10,7 +11,7 @@ export default defineComponent({
       default: true
     },
     columns: {
-      type: Array as PropType<Array<any>>,
+      type: Array as PropType<Array<IItemConfig>>,
       default: () => []
     },
     dataSource: {
@@ -45,12 +46,20 @@ export default defineComponent({
       type: Number as PropType<number>,
       default: 15
     },
+    page: {
+      type: Number as PropType<number>,
+      default: 0
+    },
     checkboxConf: {
       type: Object as PropType<object>,
       default: () => ({})
+    },
+    onRowClick: {
+      type: Function as PropType<Function>,
+      default: () => ({})
     }
   },
-  emits: ['update:size', 'update:page'],
+  emits: ['update:size', 'update:page', 'row-click'],
   setup (props, { slots, attrs, emit }) {
     const tableAlign = computed(() => TABLE_ALIGN[props.align])
     return () => {
@@ -64,7 +73,7 @@ export default defineComponent({
       )
       const renderTable = () => {
         // 表格显示区域
-        const columnsRender = () => props.columns.map((item) => (
+        const columnsRender = () => props.columns.map((item: any) => (
           <ItemCell
             key={item.dataIndex}
             context={item}
@@ -90,6 +99,7 @@ export default defineComponent({
             <el-table
               v-loading={props.loading}
               { ...attrs }
+              onRowClick={(e: any) => emit('row-click', e)}
               ref="wxTable"
               data={props.dataSource}
               highlight-current-row
@@ -107,6 +117,7 @@ export default defineComponent({
         <div class="ms__table">
           { searchRender() }
           { renderTable() }
+          { slots.default?.() }
         </div>
       )
     }

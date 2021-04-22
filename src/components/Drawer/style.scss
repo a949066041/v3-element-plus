@@ -1,0 +1,16 @@
+.el-drawer__body {
+  flex: 1;
+  padding: 20px;
+  .ms__drawer__form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .form__context {
+      flex: 1;
+    }
+    .form__footer {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

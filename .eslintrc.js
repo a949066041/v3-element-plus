@@ -18,7 +18,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     '@typescript-eslint/interface-name-prefix': 0,
     '@typescript-eslint/no-explicit-any': 0,
-    'vue/no-setup-props-destructure': 0
+    'vue/no-setup-props-destructure': 0,
+    '@typescript-eslint/no-unused-vars': 0
   },
 
   overrides: [
