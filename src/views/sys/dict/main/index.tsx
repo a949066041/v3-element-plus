@@ -36,8 +36,8 @@ export default defineComponent({
                   v-models={[[state.size, 'size'], [state.page, 'page']]}
                   { ...state }
                   columns={[
-                    createColumn('name', '名称', FORMAT_TIME),
-                    createColumn('description', '描述', FORMAT_TIME),
+                    createColumn('name', '名称'),
+                    createColumn('description', '描述'),
                     createColumn('createTime', '创建时间', FORMAT_TIME),
                     createColumn('tools', '操作', true)
                   ]}
