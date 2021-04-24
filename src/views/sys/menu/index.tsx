@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
 import { getMenus } from '@/api/sys/menu'
-import useTable from '@/hooks/useTable'
+import useTable, { createColumn, FORMAT_TIME } from '@/hooks/useTable'
 import { IMenu } from '@/types/model/entity/sys'
 
 export default defineComponent({
@@ -21,12 +21,12 @@ export default defineComponent({
           v-models={[[state.size, 'size'], [state.page, 'page']]}
           { ...state }
           columns={[
-            { dataIndex: 'title', label: '菜单标题' },
-            { dataIndex: 'icon', label: '图标' },
-            { dataIndex: 'menuSort', label: '排序' },
-            { dataIndex: 'permission', label: '权限标识' },
-            { dataIndex: 'component', label: '组件路径' },
-            { dataIndex: 'createTime', label: '创建时间', time: true }
+            createColumn('title', '菜单标题'),
+            createColumn('icon', '图标'),
+            createColumn('menuSort', '排序'),
+            createColumn('permission', '权限标识'),
+            createColumn('component', '组件路径'),
+            createColumn('createTime', '创建时间', FORMAT_TIME)
           ]}
           tree-props={{ children: 'children', hasChildren: 'hasChildren' }}
           row-key="id"

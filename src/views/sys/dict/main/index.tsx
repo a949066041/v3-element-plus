@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
-import useTable, { useTableModal } from '@/hooks/useTable'
+import useTable, { createColumn, FORMAT_TIME, useTableModal } from '@/hooks/useTable'
 import useTools from '@/hooks/useTools'
 import { IDict } from '@/types/model/entity/sys'
 import DictForm from './Form'
@@ -36,10 +36,10 @@ export default defineComponent({
                   v-models={[[state.size, 'size'], [state.page, 'page']]}
                   { ...state }
                   columns={[
-                    { dataIndex: 'name', label: '名称' },
-                    { dataIndex: 'description', label: '描述' },
-                    { dataIndex: 'createTime', label: '创建时间', time: true },
-                    { dataIndex: 'tools', label: '操作', slots: true }
+                    createColumn('name', '名称', FORMAT_TIME),
+                    createColumn('description', '描述', FORMAT_TIME),
+                    createColumn('createTime', '创建时间', FORMAT_TIME),
+                    createColumn('tools', '操作', true)
                   ]}
                   loading={state.loading}
                   onRowClick={(row: IDict) => emit('choose', { name: row.name, id: row.id })}
