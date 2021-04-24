@@ -8,6 +8,10 @@ import '../index.scss'
 
 export default defineComponent({
   name: 'DictMain',
+  props: {
+    onChoose: Function
+  },
+  emits: ['choose'],
   setup (props, { emit }) {
     const { state, searchTable, resetSearch, search } = useTable<IDict>({ api: '/api/dict' })
 
@@ -38,7 +42,7 @@ export default defineComponent({
                     { dataIndex: 'tools', label: '操作', slots: true }
                   ]}
                   loading={state.loading}
-                  onRowClick={(row: IDict) => emit('update:dict', { name: row.name, id: row.id })}
+                  onRowClick={(row: IDict) => emit('choose', { name: row.name, id: row.id })}
                 >
                   {{
                     search: () => (
