@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue'
 import MsTable from '@/components/Table'
-import useTable from '@/hooks/useTable'
+import useTable, { createColumn, FORMAT_TIME } from '@/hooks/useTable'
 import { IDept } from '@/types/model/entity/sys'
 
 export default defineComponent({
@@ -13,9 +13,9 @@ export default defineComponent({
           v-models={[[state.size, 'size'], [state.page, 'page']]}
           { ...state }
           columns={[
-            { dataIndex: 'name', label: '名称' },
-            { dataIndex: 'deptSort', label: '排序' },
-            { dataIndex: 'createTime', label: '创建时间', time: true }
+            createColumn('name', '名称'),
+            createColumn('deptSort', '排序'),
+            createColumn('createTime', '创建时间', FORMAT_TIME)
           ]}
         >
           {{

@@ -1,7 +1,7 @@
 import { defineComponent, PropType, watch } from 'vue'
 import MsTable from '@/components/Table'
 import { IDict, IDictDetail } from '@/types/model/entity/sys'
-import useTable, { useTableModal } from '@/hooks/useTable'
+import useTable, { createColumn, FORMAT_TIME, TOOL_TIP, useTableModal } from '@/hooks/useTable'
 import DictDetailForm from './Form'
 
 export default defineComponent({
@@ -43,11 +43,11 @@ export default defineComponent({
                   total={state.total}
                   dataSource={state.dataSource}
                   columns={[
-                    { dataIndex: 'label', label: '字典标签', slots: true },
-                    { dataIndex: 'value', label: '字典值', config: { 'show-overflow-tooltip': true } },
-                    { dataIndex: 'dictSort', label: '排序', config: { 'show-overflow-tooltip': true } },
-                    { dataIndex: 'createTime', label: '创建时间', time: true },
-                    { dataIndex: 'tools', label: '操作', slots: true }
+                    createColumn('label', '字典标签'),
+                    createColumn('value', '字典值', TOOL_TIP),
+                    createColumn('dictSort', '排序', TOOL_TIP),
+                    createColumn('createTime', '创建时间', FORMAT_TIME),
+                    createColumn('tools', '操作', true)
                   ]}
                   loading={state.loading}
                 >
@@ -67,7 +67,6 @@ export default defineComponent({
                         </el-row>
                       </el-form>
                     ),
-                    label: ({ value }: { value: string }) => (<div>{ value }</div>),
                     tools: ({ row }: { row: IDictDetail }) => (
                       <>
                         <el-button type="primary" size="small" icon="el-icon-edit" onClick={() => { openDialog(row.id) }} />

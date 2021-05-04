@@ -1,6 +1,6 @@
 import { defineComponent, PropType, watch } from 'vue'
 import MsTable from '@/components/Table'
-import useTable, { useTableModal } from '@/hooks/useTable'
+import useTable, { useTableModal, createColumn, FORMAT_TIME } from '@/hooks/useTable'
 import { IUser } from '@/types/model/entity/sys'
 import SysForm from './Form'
 
@@ -31,13 +31,13 @@ export default defineComponent({
             v-models={[[state.size, 'size'], [state.page, 'page']]}
             { ...state }
             columns={[
-              { dataIndex: 'username', label: '用户名' },
-              { dataIndex: 'nickName', label: '昵称' },
-              { dataIndex: 'gender', label: '性别' },
-              { dataIndex: 'phone', label: '电话' },
-              { dataIndex: 'email', label: '邮箱' },
-              { dataIndex: 'createTime', label: '创建时间', time: true },
-              { dataIndex: 'tools', label: '操作', slots: true }
+              createColumn('username', '用户名'),
+              createColumn('nickName', '昵称'),
+              createColumn('gender', '性别'),
+              createColumn('phone', '电话'),
+              createColumn('email', '邮箱'),
+              createColumn('createTime', '创建时间', FORMAT_TIME),
+              createColumn('tools', '操作', true)
             ]}
             loading={state.loading}
           >

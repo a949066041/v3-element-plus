@@ -22,7 +22,7 @@ export default defineComponent({
     const dataIndex: string = context?.dataIndex as string
     const slotScope = context?.slots
       ? { default: (scope: any) => props.slots({ ...scope, value: scope.row[dataIndex] }) }
-      : context?.time && { default: (scope: any) => h('span', parseTime(scope.row[dataIndex])) }
+      : (context?.time || context?.config?.formatTime) && { default: (scope: any) => h('span', parseTime(scope.row[dataIndex])) }
     return () => {
       return (
         <el-table-column
